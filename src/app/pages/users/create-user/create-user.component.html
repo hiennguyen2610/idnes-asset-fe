@@ -1,0 +1,37 @@
+<div class="form-container">
+    <h2>Thêm người dùng</h2>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label> Tên</label>
+            <input type="text" class="form-control" id="firstName" [(ngModel)]="user.name" name="firstName" />
+        </div>
+
+        <div class="form-group">
+            <label> Email</label>
+            <input type="text" class="form-control" id="lastName" [(ngModel)]="user.email" name="lastName" email required />
+        </div>
+
+        <div class="form-group">
+            <label> Mật khẩu</label>
+            <input type="password" class="form-control" id="emailId" [(ngModel)]="user.password" name="password" />
+        </div>
+        
+        <div class="form-group">
+            <label> Nhập lại mật khẩu</label>
+            <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="user.confirmPassword" name="confirmPassword" #confirmPassword="ngModel" />
+            <div *ngIf="user.password !== user.confirmPassword && confirmPassword.touched" class="text-danger">
+                Mật khẩu không khớp.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Vai trò</label>
+            <select class="form-control" [(ngModel)]="user.role" name="role">
+                <option value="ADMIN">ADMIN</option>
+                <option value="USER">USER</option>
+            </select>
+        </div>
+
+        <button class="btn btn-success" type="submit" [disabled]="user.password !== user.confirmPassword">Submit</button>
+    </form>
+</div>

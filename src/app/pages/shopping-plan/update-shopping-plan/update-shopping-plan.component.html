@@ -1,0 +1,212 @@
+  <div style="padding: 20px; background-color: #f5f5f5; width: 800px; height: 455px;">
+    <ul class="nav nav-tabs" style="margin-bottom: 25px; cursor: pointer;">
+        <li class="nav-item" (click)="activeTab = 'update'">
+            <a class="nav-link" [class.active]="activeTab === 'update'">Cập nhật danh mục</a>
+        </li>
+        <li class="nav-item" (click)="activeTab = 'history'">
+            <a class="nav-link" [class.active]="activeTab === 'history'">Lịch sử cập nhật</a>
+        </li>
+    </ul>
+
+    <div *ngIf="activeTab === 'update'; else historyTab">
+        <form (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                  <label> Năm thực hiện</label>
+                  <input disabled class="check form-control" [(ngModel)]="shoppingPlan.planListDetails[0].planList[0].year" name="year"/>  
+                  <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Năm không hợp lệ</mat-error>
+                </div>
+              </div>
+        
+              <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                  <label>Danh sách kế hoạch</label>
+                  <input id="planListId" class="check form-control" (change)="onPlanChange($event)" required  [(ngModel)]="shoppingPlan.planListDetails[0].nameOfPlanList" name="nameOfPlanList"/>
+                  <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Danh sách hợp lệ</mat-error>
+                </div>
+              </div>
+        
+              <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                  <label> Tên sản phẩm </label>
+                  <div class="input-container">
+                  <input type="text" class="check form-control" [(ngModel)]="shoppingPlan.productName" name="productName"
+                    required maxlength="1000" />
+                  <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Tên sản phẩm không hợp
+                    lệ</mat-error>
+                </div>
+                </div>
+              </div>
+        
+              <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                  <label> Phân loại</label>
+                  <select id="planListId" class="check form-control" (change)="onProductTypeChange($event)" required [(ngModel)]="shoppingPlan.productTypeDetails[0].productTypes[0].type" name="type">
+                    <option value="" disabled selected> Chọn loại</option>
+                    <option *ngFor="let productType of productTypeOptions" [value]="productType.id">{{ productType.type }}
+                    </option>
+                  </select>
+                  <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Phân loại không hợp
+                    lệ</mat-error>
+                </div>
+              </div>
+        
+              <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                  <label> Nhóm sản phẩm</label>
+                  <select class="check form-control" (change)="onProductTypeDetailChange($event)" required [(ngModel)]="shoppingPlan.productTypeDetails[0].typeDetail" name="typeDetail">
+                    <option value="" disabled selected>Loại</option>
+                    <option *ngFor="let productTypeDetail of productTypeDetailOptions" [value]="productTypeDetail.id">{{
+                      productTypeDetail.typeDetail }}</option>
+                  </select>
+                  <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Nhóm sản phẩm
+                    không hợp lệ</mat-error>
+                </div>
+              </div>
+
+              <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                  <label> Số lượng </label>
+                  <input type="number" class="check form-control" [(ngModel)]="shoppingPlan.quantity" name="quantity" required
+                    min="1" max="999" />
+                  <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Số lượng không hợp
+                    lệ</mat-error>
+                </div>
+              </div>
+        
+        
+              <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                  <label> Đơn vị tính</label>
+                  <select class="check form-control" (change)="onUnitChange($event)" required [(ngModel)]="shoppingPlan.units[0].unitName" name="unitName">
+                    <option value="" disabled selected>Chọn đơn vị tính</option>
+                    <option *ngFor="let unit of unitOptions" [value]="unit.id">{{ unit.unitName }}</option>
+                  </select>
+                  <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Đơn vị tính không hợp
+                    lệ</mat-error>
+                </div>
+              </div>
+        
+              <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                  <label> Loại tiền</label>
+                  <select id="planListId" class="check form-control" (change)="onCurrencyChange($event)" required [(ngModel)]="shoppingPlan.currencies[0].currencyUnit" name="currencyUnit">
+                    <option value="" disabled selected>Chọn loại tiền</option>
+                    <option *ngFor="let currency of currencyOptions" [value]="currency.id">{{ currency.currencyUnit }}</option>
+                  </select>
+                  <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Loại tiền không hợp
+                    lệ</mat-error>
+                </div>
+              </div>
+
+              <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                  <label> Mô tả </label>
+                  <textarea type="text" class="form-control" [(ngModel)]="shoppingPlan.description"
+                    name="description"></textarea>
+                </div>
+              </div>
+
+            </div>
+            <div class="m-t-20 text-center">
+                <button class="btn btn-success" style=" width: 200px;" type="submit">
+                  Cập nhật
+                </button>
+              </div>
+
+          </form>
+    </div>
+
+    <ng-template #historyTab>
+        <div class="row">
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Version</label>
+                    <select class="form-control" (change)="selectedVersion($event)">
+                        <option value="" disabled selected> Chọn danh sách</option>
+                        <option *ngFor="let ver of versions" [value]="ver">{{ ver }}</option>
+                      </select>
+                </div>
+            </div>
+
+            <!-- <div class="col-sm-4 mb-3">
+              <div class="form-group">
+                  <label> Năm thực hiện</label>
+                  <input class="form-control" [(ngModel)]="shoppingPlanHistory.shoppingPlan.planListDetails[0].planList[0].year" name="year"/>
+              </div>
+          </div> -->
+
+            <!-- <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Tên kế hoạch</label>
+                    <input class="form-control" [(ngModel)]="shoppingPlanHistory.shoppingPlan.planListDetails[0].nameOfPlanList" name="nameOfPlanList" />
+                </div>
+            </div> -->
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Tên sản phẩm </label>
+                    <input type="text" class="form-control" [(ngModel)]="shoppingPlanHistory.productName"/>
+                </div>
+            </div>
+
+            <!-- <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                  <label>Phân loại</label>
+                  <input type="text" class="form-control"
+                      [(ngModel)]="shoppingPlanHistory.shoppingPlan.productTypeDetails[0].productTypes[0].type" name="productType"
+                      disabled />
+                </div>
+            </div> -->
+  
+            <!-- <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Nhóm sản phẩm </label>
+                    <input type="text" class="form-control" [(ngModel)]="shoppingPlanHistory.shoppingPlan.productTypeDetails[0].typeDetail"
+                name="productTypeDetails" disabled />
+                </div>
+            </div> -->
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Đơn vị </label>
+                    <input type="text" class="form-control" [(ngModel)]="shoppingPlanHistory.unit" name="unit" />
+                </div>
+            </div>
+  
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Loại tiền </label>
+                    <input type="text" class="form-control" [(ngModel)]="shoppingPlanHistory.currency" name="currency" />
+                </div>
+            </div>
+   
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Số lượng </label>
+                    <input type="text" class="form-control" [(ngModel)]="shoppingPlanHistory.quantity" name="quantity" />
+                </div>
+            </div>
+  
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Người thực hiện thay đổi </label>
+                    <input type="text" class="form-control" [(ngModel)]="shoppingPlanHistory.modifiedBy" name="modifiedBy" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+              <div class="form-group">
+                  <label> Ngày thay đổi </label>
+                  <input type="text" class="form-control" [(ngModel)]="shoppingPlanHistory.updateDate" name="updateDate" />
+              </div>
+          </div>
+
+        </div>
+    </ng-template>
+</div>
+
+
+  

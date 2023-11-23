@@ -1,0 +1,33 @@
+.table{
+  height: 70px;
+}
+
+.bg-table-header{
+  background-color:rgb(158,207,251) !important;
+  vertical-align: middle ;
+}
+
+.material-icons {
+  font-size: inherit;
+}
+
+.col-sm-2 {
+  width: inherit;
+}
+
+.table td {
+  vertical-align: middle ;
+}
+
+.table th {
+  vertical-align: middle ;
+}
+
+
+.btn {
+  display: inline-block;
+  margin-right: 10px; 
+  height: 39.2px;
+  margin-bottom: 0.8px;
+}
+

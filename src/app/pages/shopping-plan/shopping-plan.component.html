@@ -1,0 +1,147 @@
+<div style="display: flex; margin-bottom: 20px;" >
+  <div class="form-group">
+    <label style="font-weight: bold;">Năm thực hiện</label>
+    <select id="planListId" class="check form-control" (change)="onYearChange($event)" required
+      [(ngModel)]="selectedYear" style="width: 155px;">
+      <option value="" disabled selected>Chọn năm</option>
+      <option *ngFor="let plan of planListOptions" [value]="plan.id">{{ plan.year }}</option>
+    </select>
+  </div>
+
+  <div class="form-group" style="margin-left: 20px;">
+    <label style="font-weight: bold;">Danh sách kế hoạch</label>
+    <select id="planListId" class="check form-control" (change)="onPlanChange($event)" required
+      [(ngModel)]="selectedPlanDetailId" style="width: 250px;">
+      <option value="" disabled selected>Chọn kế hoạch</option>
+      <option *ngFor="let planListDetail of planListDetailOptions" [value]="planListDetail.id">{{
+        planListDetail.nameOfPlanList }}</option>
+    </select>
+  </div>
+
+  <div class="form-group" style="margin-left: 20px;">
+    <label style="font-weight: bold;">Tìm kiếm </label>
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <div class="input-group">
+          <input type="text" id="productName" formControlName="productName"
+            class="form-control" placeholder="Nhập tên sản phẩm"  />
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary" style="vertical-align: middle; text-align: center; height: 38px;">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+  </div>
+
+  <div class="form-group" style="margin-left: 20px; margin-top: 29px;">
+    <button type="submit" class="btn btn-primary" style="vertical-align: middle; text-align: center;"
+      (click)="openDialogSearch()">
+      Tìm kiếm nâng cao
+    </button>
+  </div>
+
+  <div class="form-group" style="margin-left: 20px; margin-top: 29px;">
+    <button mat-raised-button class="btn btn-primary" style="vertical-align: middle; text-align: center"
+      (click)="openDialogCreateShoppingPlan()">
+      <span>Tạo danh mục mua sắm</span>
+    </button>
+  </div>
+
+  <div class="form-group" style="margin-left: 20px; margin-top: 29px;">
+    <button class="btn btn-primary" style="vertical-align: middle; text-align: center" 
+    (click)="exportToExcel()">
+      <span>Xuất Excel</span>
+    </button>
+  </div>
+</div>
+
+<div style="position: relative; ">
+  <div class="mat-elevation-z1 tab">
+    <table class="table table-hover bg-table-header table-bordered" style="width:100%">
+      <thead style="height: 50px; vertical-align: middle; text-align: center" class="table-primary">
+        <tr>
+          <th style="width:3%">STT</th>
+          <th style="width:31%">Tên sản phẩm</th>
+          <th style="width:15%">Người tạo</th>
+          <th style="width:12%">Ngày tạo</th>
+          <th style="width:7%">Số lượng</th>
+          <th style="width:7%">Đơn vị</th>
+          <th style="width:10%">Trạng thái</th>
+          <th style="width:14%">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="shoppingPlanList.length > 0; else noData">
+          <tr *ngFor="let product of shoppingPlanList; let i = index">
+            <td style="text-align: center">{{ product.id }}</td>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.createdBy }}</td>
+            <td>{{ product.createdDateTime | date: 'dd/MM/yyyy' }}</td>
+            <td style="text-align: center">{{ product.quantity }}</td>
+            <td>{{ product.units[0].unitName }}</td>
+            <td>{{ product.status }}</td>
+            <td>
+              <button class="btn" *ngIf="product.status === 'Đã xong'"
+              (click)="viewAsset(product.id)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+
+              <button class="btn" (click)="openDialogUpdate(product.id)" title="Chỉnh sửa thông tin sản phẩm">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button class="btn" *ngIf="
+                product.status !== 'Đã phê duyệt' &&
+                product.status !== 'Chờ phê duyệt' &&
+                product.status !== 'Đã xong'
+              " (click)="deleteShoppingPlan(product.id)" title="Xóa sản phẩm">
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button class="btn" *ngIf="userRole === 'ADMIN' && product.status === 'Chờ phê duyệt'"
+                (click)="changeProductStatusToApproved(product.id)" title="Phê duyệt sản phẩm">
+                <mat-icon>forward</mat-icon>
+              </button>
+
+              <button class="btn" *ngIf="
+                (userRole === 'ADMIN' && product.status === 'Đã phê duyệt') ||
+                (userRole === 'ADMIN' && product.status === 'Chờ phê duyệt')
+              " (click)="changeProductStatusToCancelled(product.id)" title="Hủy sản phẩm">
+                <mat-icon>cancel</mat-icon>
+              </button>
+
+              <button class="btn" *ngIf="userRole === 'ADMIN' && product.status === 'Đã hủy'" style="display: none">
+                <!-- Button is hidden -->
+              </button>
+
+              <button class="btn" *ngIf="userRole !== 'ADMIN' && product.status === 'Khởi tạo'"
+                (click)="changeProductStatusToPending(product.id)" title="Gửi yêu cầu phê duyệt sản phẩm">
+                <mat-icon>forward</mat-icon>
+              </button>
+
+              <button class="btn" *ngIf="userRole !== 'ADMIN' && product.status === 'Chờ phê duyệt'"
+                style="display: none">
+                <!-- Button is hidden -->
+              </button>
+
+              <button class="btn" *ngIf="userRole !== 'ADMIN' && product.status === 'Đã phê duyệt'"
+                (click)="changeProductStatusToDone(product.id)" title="Thêm sản phẩm vào Tài sản">
+                <mat-icon>done</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #noData>
+          <tr>
+            <td colspan="8" style="text-align: center">Không có dữ liệu</td>
+          </tr>
+        </ng-template>
+      </tbody>
+
+    </table>
+  </div>
+
+  <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="pageIndex"
+  (page)="onPageChange($event, selectedPlanDetailId)"></mat-paginator>
+
+</div>

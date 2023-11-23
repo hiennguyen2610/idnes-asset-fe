@@ -1,0 +1,119 @@
+<div style="padding: 20px; background-color: #f5f5f5; width: 800px;">
+  <h2>Tạo mới danh mục</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-sm-4 mb-3">
+        <div class="form-group">
+          <label> Năm thực hiện</label>
+          <select id="planListId" class="check form-control" (change)="onYearChange($event)" required [(ngModel)]="selectedYear">
+            <option value="" disabled selected> Chọn năm</option>
+            <option *ngFor="let plan of planListOptions" [value]="plan.id">{{ plan.year }}</option>
+          </select>
+          <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Năm không hợp lệ</mat-error>
+        </div>
+      </div>
+
+
+      <div class="col-sm-4 mb-3">
+        <div class="form-group">
+          <label>Danh sách kế hoạch</label>
+          <select id="planListId" class="check form-control" (change)="onPlanChange($event)" required [(ngModel)]="selectedPlanDetailId">
+            <option value="" disabled selected>Danh sách kế hoạch</option>
+            <option *ngFor="let planListDetail of planListDetailOptions" [value]="planListDetail.id">{{
+              planListDetail.nameOfPlanList }}</option>
+          </select>
+          <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Năm không hợp lệ</mat-error>
+        </div>
+      </div>
+
+      <div class="col-sm-4 mb-3">
+        <div class="form-group">
+          <label> Tên sản phẩm </label>
+          <div class="input-container">
+          <input type="text" class="check form-control" [(ngModel)]="shoppingPlan.productName" name="productName"
+            required maxlength="1000" />
+          <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Tên sản phẩm không hợp
+            lệ</mat-error>
+        </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 mb-3">
+        <div class="form-group">
+          <label> Phân loại</label>
+          <select id="planListId" class="check form-control" (change)="onProductTypeChange($event)" required [(ngModel)]="selectedProductTypeId">
+            <option value="" disabled selected> Chọn loại</option>
+            <option *ngFor="let productType of productTypeOptions" [value]="productType.id">{{ productType.type }}
+            </option>
+          </select>
+          <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Phân loại không hợp
+            lệ</mat-error>
+        </div>
+      </div>
+
+      <div class="col-sm-4 mb-3">
+        <div class="form-group">
+          <label> Nhóm sản phẩm</label>
+          <select id="planListId" class="check form-control" (change)="onProductTypeDetailChange($event)" required [(ngModel)]="selectedProductTypeDetailId">
+            <option value="" disabled selected>Loại</option>
+            <option *ngFor="let productTypeDetail of productTypeDetailOptions" [value]="productTypeDetail.id">{{
+              productTypeDetail.typeDetail }}</option>
+          </select>
+          <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Nhóm sản phẩm
+            không hợp lệ</mat-error>
+        </div>
+      </div>
+      <div class="col-sm-4 mb-3">
+        <div class="form-group">
+          <label> Số lượng </label>
+          <input type="number" class="check form-control" [(ngModel)]="shoppingPlan.quantity" name="quantity" required
+            min="1" max="999" />
+          <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Số lượng không hợp
+            lệ</mat-error>
+        </div>
+      </div>
+
+
+      <div class="col-sm-4 mb-3">
+        <div class="form-group">
+          <label> Đơn vị tính</label>
+          <select id="planListId" class="check form-control" (change)="onUnitChange($event)" required [(ngModel)]="selectedUnitId">
+            <option value="" disabled selected>Chọn đơn vị tính</option>
+            <option *ngFor="let unit of unitOptions" [value]="unit.id">{{ unit.unitName }}</option>
+          </select>
+          <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Đơn vị tính không hợp
+            lệ</mat-error>
+        </div>
+      </div>
+
+      <div class="col-sm-4 mb-3">
+        <div class="form-group">
+          <label> Loại tiền</label>
+          <select id="planListId" class="check form-control" (change)="onCurrencyChange($event)" required [(ngModel)]="selectedCurrencyId">
+            <option value="" disabled selected>Chọn loại tiền</option>
+            <option *ngFor="let currency of currencyOptions" [value]="currency.id">{{ currency.currencyUnit }}</option>
+          </select>
+          <mat-error class="mat-error-unitNameInvalid" style="color: red; font-size: small">Loại tiền không hợp
+            lệ</mat-error>
+        </div>
+      </div>
+
+
+      <div class="col-sm-4 mb-3">
+        <div class="form-group">
+          <label> Mô tả </label>
+          <textarea type="text" class="form-control" [(ngModel)]="shoppingPlan.description"
+            name="description"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="m-t-20 text-center">
+      <button class="btn btn-success" style="margin-top: 20px; width: 200px;" type="submit"
+      [disabled]="isButtonDisabled()">
+        Tạo mới
+      </button>
+    </div>
+  </form>
+</div>

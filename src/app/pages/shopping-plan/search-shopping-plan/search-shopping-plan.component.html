@@ -1,0 +1,83 @@
+<div style="width: 700px; padding: 20px; background-color: #f5f5f5">
+  <h3 style="font-weight: 600;">Tìm kiếm sản phẩm</h3>
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="row" >
+      <div class="col-sm-12 mb-1">
+        <div class="form-group">
+          <label> Tên sản phẩm </label>
+          <input type="text" class="form-control" formControlName="productName"/>
+        </div>
+      </div>
+  
+      <div class="col-sm-6 mb-1">
+        <div class="form-group">
+          <label> Năm thực hiện </label>
+          <select id="planListId" class="form-control"  (change)="onYearChange($event)"
+       formControlName="planList">
+      <option value="" disabled >Chọn năm</option>
+      <option *ngFor="let plan of planListOptions" [value]="plan.id">{{ plan.year }}</option>
+    </select>
+        </div>
+      </div>
+  
+      <div class="col-sm-6 mb-1">
+        <div class="form-group">
+          <label> Danh mục kế hoạch </label>
+          <select id="planListId" class="form-control" 
+       formControlName="planListDetail">
+      <option value="" disabled >Chọn kế hoạch</option>
+      <option *ngFor="let planListDetail of planListDetailOptions" [value]="planListDetail.id">{{
+        planListDetail.nameOfPlanList }}</option>
+    </select>
+        </div>
+      </div>
+  
+      <div class="col-sm-6 mb-1">
+        <div class="form-group">
+          <label> Phân loại </label>
+          <select id="planListId" class="form-control"  (change)="onProductTypeChange($event)" formControlName="productType">
+            <option value="" disabled selected> Chọn loại</option>
+            <option *ngFor="let productType of productTypeOptions" [value]="productType.id">{{ productType.type }}
+            </option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="col-sm-6 mb-1">
+        <div class="form-group">
+          <label> Nhóm sản phẩm </label>
+          <select id="planListId" class="check form-control" formControlName="productTypeDetail">
+            <option value="" disabled selected>Loại</option>
+            <option *ngFor="let productTypeDetail of productTypeDetailOptions" [value]="productTypeDetail.id">{{
+              productTypeDetail.typeDetail }}</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="col-sm-6 mb-1">
+        <div class="form-group">
+          <label> Đơn vị tính </label>
+          <select id="planListId" class="check form-control" formControlName="unit">
+            <option value="" disabled selected>Chọn đơn vị tính</option>
+            <option *ngFor="let unit of unitOptions" [value]="unit.id">{{ unit.unitName }}</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="col-sm-6 mb-1">
+        <div class="form-group">
+          <label> Loại tiền </label>
+          <select id="planListId" class="check form-control" formControlName="currency">
+            <option value="" disabled selected>Chọn loại tiền</option>
+            <option *ngFor="let currency of currencyOptions" [value]="currency.id">{{ currency.currencyUnit }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="m-t-20 text-center">
+      <button class="btn btn-success" style="width: 200px" type="submit">
+        Tìm kiếm
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,159 @@
+<div class="row" style="padding: 20px; background-color: #f5f5f5; width: 1000px;">
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Tên sản phẩm</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.shoppingPlan.productName" name="productName"
+                disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Mã sản phẩm</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.itemCode" name="itemCode" disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Serial</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.shoppingPlan.serial" name="serial" disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Người phê duyệt</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.shoppingPlan.approvedBy" name="approvedBy"
+                disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Số lượng</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.shoppingPlan.quantity" name="quantity"
+                disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Năm thực hiện</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.shoppingPlan.planListDetails[0].planList[0].year"
+                name="year" disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-6 ">
+        <div class="form-group">
+            <p>Danh mục kế hoạch</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.shoppingPlan.planListDetails[0].nameOfPlanList"
+                name="planListDetails" disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Đơn vị tính</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.shoppingPlan.units[0].unitName" name="unitName"
+                disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Mã hợp đồng</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.contractCode" name="contractCode" disabled />
+        </div>
+    </div>
+
+
+    <div class="col-sm-6 ">
+        <div class="form-group">
+            <p>Tên hợp đồng</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.contractName" name="contractName" disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group">
+          <p>Đơn giá</p>
+          <input type="text" class="form-control" [ngModel]="asset.price | currency:'VND' : 'symbol' : '1.0-0' : 'vi-VN'" disabled />
+        </div>
+      </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Mã nhà cung cấp</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.suppliers[0].supplierCode" name="supplierCode"
+                disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-6 ">
+        <div class="form-group">
+            <p>Tên nhà cung cấp</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.suppliers[0].supplierName" name="supplierName"
+                disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Loại tiền</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.shoppingPlan.currencies[0].currencyUnit"
+                name="currencyUnit" disabled />
+        </div>
+    </div>
+
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Quốc gia</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.productOrigin" name="productOrigin" disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="form-group">
+          <p>Ngày bắt đầu bảo hành</p>
+          <input type="text" class="form-control" [ngModel]="asset.warrantyStartDate | date:'dd/MM/yyyy'" disabled />
+        </div>
+      </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Thời gian bảo hành</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.warrantyPeriod" name="warrantyPeriod" disabled />
+        </div>
+    </div>
+
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Phân loại</p>
+            <input type="text" class="form-control"
+                [(ngModel)]="asset.shoppingPlan.productTypeDetails[0].productTypes[0].type" name="productType"
+                disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-3 ">
+        <div class="form-group">
+            <p>Nhóm sản phẩm</p>
+            <input type="text" class="form-control" [(ngModel)]="asset.shoppingPlan.productTypeDetails[0].typeDetail"
+                name="productTypeDetails" disabled />
+        </div>
+    </div>
+
+    <div class="col-sm-6 ">
+        <div class="form-group">
+            <p>Mô tả</p>
+            <textarea type="text" class="form-control" [(ngModel)]="asset.shoppingPlan.description " name="description"
+                disabled>
+              </textarea>
+        </div>
+    </div>
+
+</div>

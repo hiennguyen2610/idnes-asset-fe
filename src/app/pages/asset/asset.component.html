@@ -1,0 +1,94 @@
+<div style="display: flex; margin-bottom: 20px;" >
+  <div class="form-group">
+    <label style="font-weight: bold;">Năm thực hiện</label>
+    <select id="planListId" class="check form-control" (change)="onYearChange($event)" required
+      [(ngModel)]="selectedYear" style="width: 155px;">
+      <option value="" disabled selected>Chọn năm</option>
+      <option *ngFor="let plan of planListOptions" [value]="plan.id">{{ plan.year }}</option>
+    </select>
+  </div>
+
+  <div class="form-group" style="margin-left: 20px;">
+    <label style="font-weight: bold;">Danh sách kế hoạch</label>
+    <select id="planListId" class="check form-control" (change)="onPlanChange($event)" required
+      [(ngModel)]="selectedPlanDetailId" style="width: 250px;">
+      <option value="" disabled selected>Chọn kế hoạch</option>
+      <option *ngFor="let planListDetail of planListDetailOptions" [value]="planListDetail.id">{{
+        planListDetail.nameOfPlanList }}</option>
+    </select>
+  </div>
+
+  <div class="form-group" style="margin-left: 20px;">
+    <label style="font-weight: bold;">Tìm kiếm </label>
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit(getPageEvent())">
+        <div class="input-group">
+          <input type="text" id="itemCodeOrNameOrContractCode" formControlName="itemCodeOrNameOrContractCode"
+            class="form-control" placeholder="Tên sản phẩm, mã tài sản"  />
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary" style="vertical-align: middle; text-align: center; height: 38px;">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+  </div>
+
+  <div class="form-group" style="margin-left: 20px; margin-top: 29px;">
+    <button type="submit" class="btn btn-primary" style="vertical-align: middle; text-align: center;">
+      Tìm kiếm nâng cao
+    </button>
+  </div>
+  <div class="form-group" style="margin-left: 20px; margin-top: 29px;">
+    <button class="btn btn-primary" style="vertical-align: middle; text-align: center">
+      <span>Xuất Excel</span>
+    </button>
+  </div>
+</div>
+
+<div style="position: relative; margin-top: 20px;">
+  <div class="mat-elevation-z1 tab">
+    <table class="table table-hover bg-table-header table-bordered" style="width: 100%;">
+      <thead style="height: 50px; vertical-align: middle; text-align: center;" class="table-primary">
+        <tr>
+          <th style="width: 3%;">STT</th>
+          <th style="width: 10%;">Mã tài sản</th>
+          <th style="width: 25%;">Tên sản phẩm</th>
+          <th style="width: 6%;">Số lượng</th>
+          <th style="width: 10%;">Đơn giá</th>
+          <th style="width: 10%;">Ngày bắt đầu bảo hành</th>
+          <th style="width: 23%;">Nhà cung cấp</th>
+          <th style="width: 8%;">Quốc gia</th>
+          <th style="width: 5%;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="assetList.length > 0; else noData">
+          <tr *ngFor="let product of assetList; let i = index">
+            <td style="text-align: center">{{ i + 1 }}</td>
+            <td>{{ product.itemCode }}</td>
+            <td>{{ product.shoppingPlan.productName }}</td>
+            <td style="text-align: center;">{{ product.shoppingPlan.quantity }}</td>
+            <td>
+              {{ product.price | currency : "VND" : "symbol" : "1.0-0" : "vi-VN" }}
+            </td>
+            <td>{{ product.warrantyStartDate | date : "dd/MM/yyyy" }}</td>
+            <td>{{ product.suppliers[0].supplierName }}</td>
+            <td>{{ product.productOrigin }}</td>
+            <td style="margin-left: 10px;">
+              <button class="btn" (click)="viewAsset(product.id)"><mat-icon>visibility</mat-icon></button>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #noData>
+          <tr>
+            <td colspan="9" style="text-align: center">Không có dữ liệu</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+
+
+  <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="pageIndex"
+    (page)="onPageChange($event)"></mat-paginator>
+</div>

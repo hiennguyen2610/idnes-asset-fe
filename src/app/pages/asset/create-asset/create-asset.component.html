@@ -1,0 +1,144 @@
+<div class="col-md-10 offset-md-1">
+    <h3>Tạo mới tài sản</h3>
+    <form  [formGroup]="createAsset" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Danh sách kế hoạch</label>
+                    <select formArrayName="planListId" class="form-control">
+                        <option value="" disabled selected>Danh sách</option>
+                        <option *ngFor="let plan of planListOptions; let i = index" [value]="i">{{ plan.name }}</option>
+                      </select>
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Mã sản phẩm</label>
+                    <input type="text" class="form-control" formControlName="productCode" />
+                </div>
+            </div>
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Tên sản phẩm </label>
+                    <input type="text" class="form-control" formControlName="productName" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Loại hàng hóa/ dịch vụ </label>
+                    <select id="type" formControlName="type" class="form-control">
+                        <option value="HARDWARE">Phần cứng</option>
+                        <option value="SOFTWARE">Phần mềm</option>
+                        <option value="SERVICE">Dịch vụ</option>
+                      </select>
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Đơn vị </label>
+                    <input type="text" class="form-control" formControlName="unit" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Loại tiền </label>
+                    <input type="text" class="form-control" formControlName="currency" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Thời hạn hợp đồng </label>
+                    <input type="text" class="form-control" formControlName="contractDuration" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Số lượng </label>
+                    <input type="text" class="form-control" formControlName="quantity" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Đơn giá </label>
+                    <input type="text" class="form-control" formControlName="price" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Mã hợp đồng </label>
+                    <input type="text" class="form-control" formControlName="contractCode" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Mã nhà cung cấp </label>
+                    <input type="text" class="form-control" formControlName="supplierCode" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Nhà cung cấp </label>
+                    <input type="text" class="form-control" formControlName="supplier" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Hãng sản xuất </label>
+                    <input type="text" class="form-control" formControlName="productOrigin" />
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label> Mô tả </label>
+                    <textarea type="text" class="form-control" formControlName="description"></textarea>
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label for="ngaythangnam">Ngày kết thúc bảo hành </label>
+                    <div class="input-group">
+                        <input type="date" class="ngaythangnam form-control" formControlName="warrantyExpirationDate" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label for="ngaythangnam">Ngày yêu cầu giao hàng </label>
+                    <div class="input-group">
+                        <input type="date" class="ngaythangnam form-control" formControlName="deliveryRequestDate" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 mb-3">
+                <div class="form-group">
+                    <label for="ngaythangnam">Ngày thay mới dịch vụ thiết bị</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control ngaythangnam"
+                        formControlName="equipmentServiceReplacementDate" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="m-t-20 text-center">
+            <button class="btn btn-success" style="margin-top: 20px; width: 200px;" type="submit">
+                Tạo mới
+            </button>
+        </div>
+    </form>
+</div>

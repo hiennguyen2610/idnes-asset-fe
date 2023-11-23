@@ -1,0 +1,60 @@
+<div class="wrapper">
+    <div class="container">
+        <h1>Đăng nhập</h1>
+
+        <mat-card class="form">
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Email" autocomplete="off" [(ngModel)]="email" email required />
+                <mat-error style="color: red; font-size: small">Invalid email address</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Password" type="password" required [(ngModel)]="password" />
+                <mat-error style="color: red; font-size: small">Please input password</mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button class="btn-login btn btn-primary" color="primary" (keyup.enter)="login(email, password)" (click)="login(email, password)">
+                <span> Đăng nhập</span>
+            </button>
+        </mat-card>
+    </div>
+</div>
+
+
+
+
+<!-- <div class="container">
+  <div class="row">
+    <div style="width: 400px;">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h5 class="card-title text-isLoggedIncenter"> Đăng Nhập</h5>
+          <form class="form-signin" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <div class="form-label-group">
+
+              <input autofocus formControlName="email" type="text" id="inputEmail" class="form-control"
+                     placeholder="Tên tài khoản">
+            </div>
+
+            <div class="form-label-group">
+
+              <input formControlName="password" type="password" id="inputPassword" class="form-control"
+                     placeholder="Mật khẩu"
+                     required>
+            </div>
+            <div class="custom-control custom-checkbox mb-3">
+              <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="remember_me">
+              <label class="custom-control-label" for="customCheck1">Ghi nhớ đăng nhập lần sau</label>
+            </div>
+            <div>
+              <p><a href="" routerLink="/reset-password" data-dismiss="modal">Quên mật khẩu ?</a></p>
+            </div>
+            <button class="btn btn-lg btn-primary text-uppercase" type="submit">Đăng nhập</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+  
